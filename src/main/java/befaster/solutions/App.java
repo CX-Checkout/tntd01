@@ -1,36 +1,48 @@
 package befaster.solutions;
 
+import java.util.HashMap;
+import java.util.function.Function;
 
 public class App {
 
         public static Integer checkout(String s) {
             int total = 0;
-            Character itemA = 'A';
-            Character itemB = 'B';
-            Character itemC = 'C';
-            Character itemD = 'D';
-            Character itemE = 'E';
-            Character itemF = 'F';
+            //create new HashMap of letter to lambda calculating total
+            HashMap<Character, Function> sku = new HashMap<>();
 
-
-            char[] items = {itemA, itemB, itemC, itemD, itemE, itemF};
-            String allitems = new String(items);
+            String allitems = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
             if(s.isEmpty()){
                 return 0;
             }
 
-            total = getATotal(s, itemA);
+            total = getATotal(s, 'A');
+            total += getBTotal(s, 'B', 'E');
+            total += calculateNumberOfItem(s, 'C') * 20;
+            total += getCharTotal(s, 'D', 15);
+            total += getCharTotal(s, 'E', 40);
+            total += getFTotal(s, 'F');
+            total += getCharTotal(s, 'G', 20);
+            total += getHTotal(s);
+            total += getCharTotal(s, 'I', 35);
+            total += getCharTotal(s, 'J', 60);
+            total += getKTotal(s);
+            total += getCharTotal(s, 'L', 90);
+            total += getMTotal(s);
+            total += getCharTotal(s, 'N', 40);
 
-            total += getEAndBCombinedTotal(s, itemB, itemE);
-
-            int cCounter = calculateNumberOfItem(s, itemC);
-            total += cCounter * 20;
-
-            int dCounter = calculateNumberOfItem(s, itemD);
-            total += dCounter * 15;
-
-            total += getFTotal(s, itemF);
+            total += getCharTotal(s, 'O', 10);
+            total += getPTotal(s);
+            total += getQTotal(s);
+            total += getCharTotal(s, 'R', 50);
+            total += getCharTotal(s, 'S', 30);
+            total += getCharTotal(s, 'T', 20);
+            total += getUTotal(s);
+            total += getVTotal(s);
+            total += getCharTotal(s, 'W', 20);
+            total += getCharTotal(s, 'X', 90);
+            total += getCharTotal(s, 'Y', 10);
+            total += getCharTotal(s, 'Z', 50);
 
             //if a letter is present that is not one of the above, exit early
             int otherCounter = calculateNumberOfItemNotListed(s, allitems);
@@ -45,10 +57,56 @@ public class App {
             return -1;
         }
 
+    private static int getVTotal(String s) {
+        int counter = calculateNumberOfItem(s, 'V');
+        return (counter / 3) * 130 + ((counter % 3) / 2) * 90 + ((counter % 3) % 2) * 50;
+    }
+
+    private static int getUTotal(String s) {
+        return priceIfBuyNGetMFree(calculateNumberOfItem(s, 'U'), 4, 40);
+    }
+
+    private static int getQTotal(String s) {
+        int counter = getNumOfChar1WhenDependantOnChar2(s, 'Q', 'R', 3);
+        return getDiscountedTotal(counter, 3, 30, 80);
+    }
+
+    private static int getPTotal(String s) {
+        return getDiscountedTotal(calculateNumberOfItem(s, 'P'), 5, 50, 200);
+    }
+
+    private static int getMTotal(String s) {
+        return getNumOfChar1WhenDependantOnChar2(s,'M', 'N', 3) * 15;
+    }
+
+    private static int getKTotal(String s) {
+        int counter = calculateNumberOfItem(s, 'K');
+        int numberToHitDiscount = 2;
+        int singlePrice = 80;
+        int bundlePrice = 150;
+        return getDiscountedTotal(counter, numberToHitDiscount, singlePrice, bundlePrice);
+    }
+
+    private static int getDiscountedTotal(int counter, int numberToHitDiscount, int singlePrice, int bundlePrice) {
+        return (counter / numberToHitDiscount) * bundlePrice + (counter % numberToHitDiscount) * singlePrice;
+    }
+
+    private static int getCharTotal(String s, Character c, int price) {
+        return calculateNumberOfItem(s, c) * price;
+    }
+
+    private static int getHTotal(String s) {
+        int hCounter = calculateNumberOfItem(s, 'H');
+        return (hCounter / 10) * 80 + ((hCounter % 10) / 5) * 45 + (hCounter % 5) * 10;
+    }
+
     private static int getFTotal(String s, Character itemF) {
-        int fCounter = calculateNumberOfItem(s, itemF);
-        fCounter = 2 * (fCounter / 3) + (fCounter % 3);
-        return fCounter * 10;
+        return priceIfBuyNGetMFree(calculateNumberOfItem(s, itemF), 3, 10);
+    }
+
+    private static int priceIfBuyNGetMFree(int fCounter, int numbertToHitOffer, int singleValue) {
+        fCounter = (numbertToHitOffer - 1) * (fCounter / numbertToHitOffer) + (fCounter % numbertToHitOffer);
+        return fCounter * singleValue;
     }
 
     private static int getATotal(String s, Character itemA) {
@@ -60,17 +118,22 @@ public class App {
         return numOf5AOffers * 200 + numOf3AOffers * 130 + leftOver * 50;
     }
 
-    private static int getEAndBCombinedTotal(String s, Character itemB, Character itemE) {
-        int eCounter = calculateNumberOfItem(s, itemE);
-        int etotal = eCounter * 40;
+    private static int getBTotal(String s, Character char1, Character char2) {
+        int bCounter = getNumOfChar1WhenDependantOnChar2(s, char1, char2,2);
+        return getDiscountedTotal(bCounter, 2, 30, 45);
+    }
 
-        int bCounter = calculateNumberOfItem(s, itemB);
+    private static int getNumOfChar1WhenDependantOnChar2(String s, Character char1, Character char2, int numberToHitOffer) {
+        int bCounter = calculateNumberOfItem(s, char1);
+        int eCounter = calculateNumberOfItem(s, char2);
+        bCounter = getNumberOfItemsWhenDependantOnAnother(bCounter, eCounter, numberToHitOffer);
+        return bCounter;
+    }
 
-        int b = bCounter - (eCounter /2);
+    private static int getNumberOfItemsWhenDependantOnAnother(int bCounter, int eCounter, int numItemsToHitOffer) {
+        int b = bCounter - (eCounter / numItemsToHitOffer);
         bCounter = b > 0 ? b : 0;
-
-        int btotal = (bCounter / 2) * 45 + (bCounter % 2) * 30;
-        return btotal + etotal;
+        return bCounter;
     }
 
     private static int calculateNumberOfItemNotListed(String s, String charsAllowed) {

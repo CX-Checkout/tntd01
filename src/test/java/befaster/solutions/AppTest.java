@@ -92,20 +92,179 @@ public class AppTest {
         assertThat(App.checkout("AAAAAAA"), equalTo(300));
     }
 
+    @Test
+    public void compute_checkout_FEquals10(){
+        assertThat(App.checkout("F"), equalTo(10));
+    }
+
 
     @Test
-    public void compute_checkout_3Fquals20(){
+    public void compute_checkout_3FEquals20(){
         assertThat(App.checkout("FFF"), equalTo(20));
     }
 
     @Test
-    public void compute_checkout_5Fquals40(){
+    public void compute_checkout_5FEquals40(){
         assertThat(App.checkout("FFFFF"), equalTo(40));
     }
 
     @Test
-    public void compute_checkout_6Fquals40(){
+    public void compute_checkout_6FEquals40(){
         assertThat(App.checkout("FFFFFF"), equalTo(40));
     }
 
+    @Test
+    public void compute_checkout_GEquals20(){
+        assertThat(App.checkout("G"), equalTo(20));
+    }
+
+    @Test
+    public void compute_checkout_HEquals10(){
+        assertThat(App.checkout("H"), equalTo(10));
+    }
+
+    @Test
+    public void compute_checkout_5HEquals45(){
+        assertThat(App.checkout("HHHHH"), equalTo(45));
+    }
+
+    @Test
+    public void compute_checkout_10HEquals80(){
+        assertThat(App.checkout("HHHHHHHHHH"), equalTo(80));
+    }
+
+    @Test
+    public void compute_checkout_15HEquals125(){
+        assertThat(App.checkout("HHHHHHHHHHHHHHH"), equalTo(125));
+    }
+
+    @Test
+    public void compute_checkout_16HEquals135(){
+        assertThat(App.checkout("HHHHHHHHHHHHHHHH"), equalTo(135));
+    }
+
+    @Test
+    public void compute_checkout_KEquals80(){
+        assertThat(App.checkout("K"), equalTo(80));
+    }
+
+    @Test
+    public void compute_checkout_2KEquals150(){
+        assertThat(App.checkout("KK"), equalTo(150));
+    }
+
+    @Test
+    public void compute_checkout_LEquals90(){
+        assertThat(App.checkout("L"), equalTo(90));
+    }
+
+    @Test
+    public void compute_checkout_MEquals15(){
+        assertThat(App.checkout("M"), equalTo(15));
+    }
+
+    @Test
+    public void compute_checkout_MNDiscountAppliesSimple(){
+        assertThat(App.checkout("NNNM"), equalTo(120));
+    }
+
+    @Test
+    public void compute_checkout_NEquals40(){
+        assertThat(App.checkout("N"), equalTo(40));
+    }
+
+    @Test
+    public void compute_checkout_OEquals10(){
+        assertThat(App.checkout("O"), equalTo(10));
+    }
+
+    @Test
+    public void compute_checkout_PEquals50(){
+        assertThat(App.checkout("P"), equalTo(50));
+    }
+
+    @Test
+    public void compute_checkout_5PEquals200(){
+        assertThat(App.checkout("PPPPP"), equalTo(200));
+    }
+
+    @Test
+    public void compute_checkout_QEquals30(){
+        assertThat(App.checkout("Q"), equalTo(30));
+    }
+
+    @Test
+    public void compute_checkout_3QEquals80(){
+        assertThat(App.checkout("QQQ"), equalTo(80));
+    }
+
+    @Test
+    public void compute_checkout_REquals50(){
+        assertThat(App.checkout("R"), equalTo(50));
+    }
+
+    @Test
+    public void compute_checkout_3R1QGetsQFree(){
+        assertThat(App.checkout("RRRQ"), equalTo(150));
+    }
+
+    @Test
+    public void compute_checkout_SEquals30(){
+        assertThat(App.checkout("S"), equalTo(30));
+    }
+
+    @Test
+    public void compute_checkout_TEquals20(){
+        assertThat(App.checkout("T"), equalTo(20));
+    }
+
+    @Test
+    public void compute_checkout_UEquals40(){
+        assertThat(App.checkout("U"), equalTo(40));
+    }
+
+    @Test
+    public void compute_checkout_4UEqualsAppliesOffer(){
+        assertThat(App.checkout("UUUU"), equalTo(120));
+    }
+
+    @Test
+    public void compute_checkout_3UEqualsAppliesOffer(){
+        assertThat(App.checkout("UUU"), equalTo(120));
+    }
+
+    @Test
+    public void compute_checkout_VEquals50(){
+        assertThat(App.checkout("V"), equalTo(50));
+    }
+
+    @Test
+    public void compute_checkout_2VEquals90(){
+        assertThat(App.checkout("VV"), equalTo(90));
+    }
+
+    @Test
+    public void compute_checkout_3VEquals90(){
+        assertThat(App.checkout("VVV"), equalTo(130));
+    }
+
+    @Test
+    public void compute_checkout_WEquals20(){
+        assertThat(App.checkout("W"), equalTo(20));
+    }
+
+    @Test
+    public void compute_checkout_XEquals90(){
+        assertThat(App.checkout("X"), equalTo(90));
+    }
+
+    @Test
+    public void compute_checkout_YEquals10(){
+        assertThat(App.checkout("Y"), equalTo(10));
+    }
+
+    @Test
+    public void compute_checkout_ZEquals50(){
+        assertThat(App.checkout("Z"), equalTo(50));
+    }
 }
