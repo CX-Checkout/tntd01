@@ -10,7 +10,10 @@ public class App {
             Character itemC = 'C';
             Character itemD = 'D';
             Character itemE = 'E';
-            char[] items = {itemA, itemB, itemC, itemD, itemE};
+            Character itemF = 'F';
+
+
+            char[] items = {itemA, itemB, itemC, itemD, itemE, itemF};
             String allitems = new String(items);
 
             if(s.isEmpty()){
@@ -27,6 +30,8 @@ public class App {
             int dCounter = calculateNumberOfItem(s, itemD);
             total += dCounter * 15;
 
+            total += getFTotal(s, itemF);
+
             //if a letter is present that is not one of the above, exit early
             int otherCounter = calculateNumberOfItemNotListed(s, allitems);
             if (otherCounter > 0){
@@ -39,6 +44,12 @@ public class App {
 
             return -1;
         }
+
+    private static int getFTotal(String s, Character itemF) {
+        int fCounter = calculateNumberOfItem(s, itemF);
+        fCounter = 2 * (fCounter / 3) + (fCounter % 3);
+        return fCounter * 10;
+    }
 
     private static int getATotal(String s, Character itemA) {
         int aCounter = calculateNumberOfItem(s, itemA);

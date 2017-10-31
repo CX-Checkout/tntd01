@@ -92,4 +92,20 @@ public class AppTest {
         assertThat(App.checkout("AAAAAAA"), equalTo(300));
     }
 
+
+    @Test
+    public void compute_checkout_3Fquals20(){
+        assertThat(App.checkout("FFF"), equalTo(20));
+    }
+
+    @Test
+    public void compute_checkout_5Fquals40(){
+        assertThat(App.checkout("FFFFF"), equalTo(40));
+    }
+
+    @Test
+    public void compute_checkout_6Fquals40(){
+        assertThat(App.checkout("FFFFFF"), equalTo(40));
+    }
+
 }
