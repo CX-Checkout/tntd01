@@ -35,14 +35,15 @@ public class App {
             total += getPTotal(s);
             total += getQTotal(s);
             total += getCharTotal(s, 'R', 50);
-            total += getCharTotal(s, 'S', 30);
-            total += getCharTotal(s, 'T', 20);
+//            total += getCharTotal(s, 'S', 20);
+//            total += getCharTotal(s, 'T', 20);
             total += getUTotal(s);
             total += getVTotal(s);
             total += getCharTotal(s, 'W', 20);
-            total += getCharTotal(s, 'X', 90);
-            total += getCharTotal(s, 'Y', 10);
-            total += getCharTotal(s, 'Z', 50);
+//            total += getCharTotal(s, 'X', 17);
+//            total += getCharTotal(s, 'Y', 20);
+//            total += getCharTotal(s, 'Z', 21);
+            total += getSTXYZTotal(s);
 
             //if a letter is present that is not one of the above, exit early
             int otherCounter = calculateNumberOfItemNotListed(s, allitems);
@@ -55,6 +56,29 @@ public class App {
             }
 
             return -1;
+        }
+
+        private static int getSTXYZTotal(String s){
+            //order by price
+            int counterZ = calculateNumberOfItem(s, 'Z');
+            int counter20 = calculateNumberOfItem(s, 'S') + calculateNumberOfItem(s, 'T') + calculateNumberOfItem(s, 'Y');
+            int counterX = calculateNumberOfItem(s, 'X');
+
+            int totalIgnoringDiscount = counterZ * 21 + counter20 * 20 + counterX * 17;
+            int totalCounter = counterZ + counter20 + counterX;
+            int numberOfDiscounts = totalCounter / 3;
+            int discountedItems = numberOfDiscounts * 45;
+            for(int i = 0; i < numberOfDiscounts * 3; i++){
+                if(counterZ > i){
+                    totalIgnoringDiscount -= 21;
+                } else if(counter20 + counterZ > i){
+                    totalIgnoringDiscount -= 20;
+                } else {
+                    totalIgnoringDiscount -= 17;
+                }
+            }
+
+            return discountedItems + totalIgnoringDiscount;
         }
 
     private static int getVTotal(String s) {
@@ -82,8 +106,8 @@ public class App {
     private static int getKTotal(String s) {
         int counter = calculateNumberOfItem(s, 'K');
         int numberToHitDiscount = 2;
-        int singlePrice = 80;
-        int bundlePrice = 150;
+        int singlePrice = 70;
+        int bundlePrice = 120;
         return getDiscountedTotal(counter, numberToHitDiscount, singlePrice, bundlePrice);
     }
 

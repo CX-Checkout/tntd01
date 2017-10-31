@@ -83,7 +83,7 @@ public class AppTest {
     }
 
     @Test
-    public void compute_checkout_6AsEquals200(){
+    public void compute_checkout_6AsEquals250(){
         assertThat(App.checkout("AAAAAA"), equalTo(250));
     }
 
@@ -144,13 +144,23 @@ public class AppTest {
     }
 
     @Test
-    public void compute_checkout_KEquals80(){
-        assertThat(App.checkout("K"), equalTo(80));
+    public void compute_checkout_IEquals35(){
+        assertThat(App.checkout("I"), equalTo(35));
     }
 
     @Test
-    public void compute_checkout_2KEquals150(){
-        assertThat(App.checkout("KK"), equalTo(150));
+    public void compute_checkout_JEquals60(){
+        assertThat(App.checkout("J"), equalTo(60));
+    }
+
+    @Test
+    public void compute_checkout_KEquals70(){
+        assertThat(App.checkout("K"), equalTo(70));
+    }
+
+    @Test
+    public void compute_checkout_2KEquals120(){
+        assertThat(App.checkout("KK"), equalTo(120));
     }
 
     @Test
@@ -209,8 +219,8 @@ public class AppTest {
     }
 
     @Test
-    public void compute_checkout_SEquals30(){
-        assertThat(App.checkout("S"), equalTo(30));
+    public void compute_checkout_SEquals20(){
+        assertThat(App.checkout("S"), equalTo(20));
     }
 
     @Test
@@ -254,17 +264,38 @@ public class AppTest {
     }
 
     @Test
-    public void compute_checkout_XEquals90(){
-        assertThat(App.checkout("X"), equalTo(90));
+    public void compute_checkout_XEquals17(){
+        assertThat(App.checkout("X"), equalTo(17));
     }
 
     @Test
-    public void compute_checkout_YEquals10(){
-        assertThat(App.checkout("Y"), equalTo(10));
+    public void compute_checkout_YEquals20(){
+        assertThat(App.checkout("Y"), equalTo(20));
     }
 
     @Test
-    public void compute_checkout_ZEquals50(){
-        assertThat(App.checkout("Z"), equalTo(50));
+    public void compute_checkout_ZEquals21(){
+        assertThat(App.checkout("Z"), equalTo(21));
     }
+
+    @Test
+    public void compute_checkout_SSSShouldBe45(){
+        assertThat(App.checkout("SSS"), equalTo(45));
+    }
+
+    @Test
+    public void compute_checkout_STXShouldBe45(){
+        assertThat(App.checkout("STX"), equalTo(45));
+    }
+
+    @Test
+    public void compute_checkout_STXYZShouldBeIncludeZInTheOffer(){
+        assertThat(App.checkout("STXYZ"), equalTo(45 + 17 + 20));
+    }
+
+    @Test
+    public void compute_checkout_ZZZYShouldBeFavourableToCustomer(){
+        assertThat(App.checkout("ZZZY"), equalTo(65));
+    }
+
 }
